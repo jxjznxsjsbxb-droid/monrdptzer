@@ -1,6 +1,7 @@
 name: RDP
 on:
   workflow_dispatch:
+
 jobs:
   secure-rdp:
     runs-on: windows-latest
@@ -28,11 +29,6 @@ jobs:
           Add-LocalGroupMember -Group "Remote Desktop Users" -Member "TOOLBOXLAP"
 
           echo "RDP_CREDS=User: TOOLBOXLAP | Password: $password" >> $env:GITHUB_ENV
-
-          if (-not (Get-LocalUser -Name "TOOLBOXLAP")) {
-              Write-Error "User creation failed"
-              exit 1
-          }
 
       - name: Install Tailscale
         run: |
